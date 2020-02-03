@@ -1,0 +1,67 @@
+.year-names-container {
+    $base-width: 78%;
+    $border-radius: 4px;
+    table {
+        width: 100% !important;
+    }
+    .mat-sort-header-button {
+        font-size: 14px;
+    }
+    .header-container {
+        font-family: BabyBlocks;
+        font-size: 32px;
+        -webkit-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
+        -moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
+        box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
+        padding: 16px;
+        background-color: white;
+        text-align: center;
+        letter-spacing: 1px;
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 16px;
+    }
+
+    .filter-container {
+        padding: 12px 0;
+        width: $base-width;
+        margin:0 auto;
+        text-align: left;
+    }
+    
+    .form-field {
+        margin-right: 16px;
+    }
+
+    .exact-match {
+        color: rgba(0,0,0,.54);
+        margin-right: 32px;
+    }
+    .table-container {
+        max-height: 600px;
+        overflow-y: auto;
+        width: $base-width;
+        margin: 0 auto;
+        border: 1px solid lightgray;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+        table {
+            width: 100%;
+        }
+        thead {
+            background-color: #C0D9C0;
+        }
+    }
+
+    .paginator-container {
+        width: $base-width;
+        margin: 0 auto;
+        border: 1px solid lightgray;
+        border-top: none;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+        .mat-paginator-container {
+            justify-content: center;
+        }
+        
+    }
+}

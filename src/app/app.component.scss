@@ -1,0 +1,11 @@
+@font-face {
+    font-family: BabyBlocks;
+    src:url("../assets/baby_blocks.ttf");
+}
+html, body, #app-container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #F6F6F6 !important;
+}

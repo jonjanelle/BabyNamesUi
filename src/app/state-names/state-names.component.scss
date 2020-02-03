@@ -1,0 +1,73 @@
+.state-names-container {
+    $base-width: 80%;
+    $border-radius: 4px;
+    
+    .state-names-card {
+        margin: 16px 32px 32px 32px;
+        padding: 32px;
+        min-height: 80vh;
+    }
+
+    .mat-sort-header-button {
+        font-size: 14px;
+    }
+
+   
+    .filter-container {
+        padding: 12px 0;
+        width: $base-width !important;
+        margin:0 auto;
+        text-align: left;
+    }
+    
+    .form-field {
+        margin-right: 16px;
+    }
+
+    .exact-match {
+        color: rgba(0,0,0,.54);
+        margin-right: 40px;
+        margin-left: -8px;
+    }
+
+    .table-container {
+        max-height: 65vh !important;
+        overflow-y: auto;
+        width: $base-width;
+        margin: 0 auto;
+        border: 1px solid lightgray;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+        table {
+            width: 100%;
+        }
+        thead {
+            background-color: #C0D9C0;
+        }
+    }
+
+    .paginator-container {
+        width: $base-width;
+        margin: 0 auto;
+        border: 1px solid lightgray;
+        border-top: none;
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+        .mat-paginator-container {
+            justify-content: center;
+            background-color: whitesmoke;
+        }
+        
+    }
+
+    @media screen and (max-width: 760px) {
+        .table-container, .paginator-container {
+            width: 100%;
+        }
+        .state-names-card {
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

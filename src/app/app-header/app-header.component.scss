@@ -1,0 +1,21 @@
+.header-container {
+    background-color: ghostwhite;
+    font-family: BabyBlocks;
+    font-size: 32px;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
+    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
+    padding: 16px;
+    background-color: white;
+    text-align: center;
+    letter-spacing: 1px;
+    border-bottom: 1px solid lightgray;
+    // margin-bottom: 16px;
+}
+
+@media screen and (max-width: 760px) {
+    .header-container {
+        font-size: 18px;
+        overflow: hidden;
+    }
+}

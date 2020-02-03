@@ -1,0 +1,61 @@
+<div  class="graph-container">
+    <app-header [title]="'NATIONAL&nbsp;&nbsp;NAME&nbsp;&nbsp;CHARTS'"></app-header>
+    <div class="card-container">
+        <mat-card class="filter-card">
+            <mat-card-content>
+                <h3>Charts</h3>
+                <div>Top names by year</div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="main-card">
+            <mat-card-content>
+                <div class="filter-container">
+                    <!-- Name filtering -->
+                    <!-- <mat-form-field class="form-field">
+                        <input matInput 
+                            (keyup)="onFilterChange()" 
+                            [(ngModel)]="nameFilter" 
+                            placeholder="Name">
+                        <button mat-button matSuffix mat-icon-button
+                            *ngIf="nameFilter" aria-label="Clear" 
+                            (click)="nameFilter='';onFilterChange();">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <span class="exact-match">
+                        <mat-checkbox [(ngModel)]="exactNameMatch" (change)="onFilterChange()">Exact</mat-checkbox>
+                    </span> -->
+            
+                    <!-- Year filtering -->
+                    <!-- <mat-form-field class="form-field">
+                        <input type="number" placeholder="Year" aria-label="Year" matInput
+                            (keyup)="onFilterChange()"
+                            [formControl]="yearControl" 
+                            [matAutocomplete]="yearAuto">
+                        <mat-autocomplete #yearAuto="matAutocomplete" (optionSelected)="onFilterChange()">
+                            <mat-option *ngFor="let year of filteredYears | async" [value]="year">
+                                {{year}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field> -->
+                </div>
+            </mat-card-content>            
+        </mat-card>
+    
+    </div>    
+
+    <!-- <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="barChartData"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        >
+    </ngx-charts-bar-vertical> -->
+</div>
