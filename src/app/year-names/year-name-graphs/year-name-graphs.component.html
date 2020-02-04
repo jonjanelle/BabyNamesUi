@@ -1,10 +1,11 @@
-<div  class="graph-container">
+<div class="graph-container">
     <app-header [title]="'NATIONAL&nbsp;&nbsp;NAME&nbsp;&nbsp;CHARTS'"></app-header>
     <div class="card-container">
         <mat-card class="filter-card">
             <mat-card-content>
                 <h3>Charts</h3>
-                <div>Top names by year</div>
+                <div class="chart-type" *ngFor="let label of chartTypeLabels">{{label}}</div>
+                
             </mat-card-content>
         </mat-card>
         <mat-card class="main-card">
@@ -38,24 +39,25 @@
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field> -->
+                    <ngx-charts-bar-vertical
+                        *ngIf="false"
+                        [view]="view"
+                        [scheme]="colorScheme"
+                        [results]="barChartData"
+                        [gradient]="gradient"
+                        [xAxis]="showXAxis"
+                        [yAxis]="showYAxis"
+                        [legend]="showLegend"
+                        [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="xAxisLabel"
+                        [yAxisLabel]="yAxisLabel"
+                        >
+                    </ngx-charts-bar-vertical>
                 </div>
             </mat-card-content>            
         </mat-card>
     
     </div>    
 
-    <!-- <ngx-charts-bar-vertical
-        [view]="view"
-        [scheme]="colorScheme"
-        [results]="barChartData"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="showLegend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        >
-    </ngx-charts-bar-vertical> -->
 </div>

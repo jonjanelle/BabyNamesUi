@@ -20,6 +20,7 @@ import { IVerticalBarChartParams } from 'src/app/models/IVerticalBarChartParams'
 export class YearNameGraphsComponent {
 	public readonly title: string = 'All Baby Names - Graphs';
 	public isLoading: boolean = true;
+	public nResults: number = 25;
 
 	// Year filter
 	public readonly yearOptions = Utilities.range(1910, 2018).sort((a, b) => a > b ? -1 : 1).map(v => v.toString());
@@ -36,7 +37,7 @@ export class YearNameGraphsComponent {
 	//chart config
 	public verticalBarParams: IVerticalBarChartParams;
 
-	public chartTypeLabels = ["Top 10 Names by Year", "Name over Time"];
+	public chartTypeLabels: string[] = ["Top 10 Names by Year", "Name over Time"];
 	public readonly chartType = {
 		top10ByYear: this.chartTypeLabels[0],
 		nameOverTime: this.chartTypeLabels[1]
@@ -58,15 +59,17 @@ export class YearNameGraphsComponent {
 			colorScheme: { domain: ['#5AA454'] }
 		};
 
-		this.yearControl = new FormControl();
 		this.initYearFilter();
+		this.getData();
 	}
 
-	public getTop10Data(filter: IFilter[]): void {
-
+	public getTop10Data(): void {
+		
 	}
 
 	private initYearFilter(): void {
+		this.yearControl = new FormControl();
+		this.yearControl.setValue(2018);
 		this.filteredYears = this.yearControl.valueChanges
 		.pipe(
 			startWith(''),
@@ -89,31 +92,34 @@ export class YearNameGraphsComponent {
 	}
 
 	public onYearSelected(stateFilter: MatAutocompleteSelectedEvent) {
-		this.getData(stateFilter.option.value);
+		this.getData();
 	}
 
 	
-	private getData(filters: IFilter[]): void {
+	private getData(take: number = 20): void {
 		this.isLoading = true;
+		const filters = this.getFilters();
+		filters.push({ field: "top", value: take })
+		filters.push({ field: "orderBy", value: "count asc" })
 		this.yearNamesService.getAllNames(filters)
 		.pipe(finalize(() => this.isLoading = false))
 		.subscribe(nameData => {
-
+			console.log("data result: ", nameData);
 		});
 	}
 
 	private getFilters(): IFilter[] {
 		let filters: IFilter[] = [];
 		
-		if (!Utilities.isNullOrUndefinedString(this.nameFilter) && this.nameFilter.length > 0) {
+		if (!isNullOrUndefined(this.nameFilter) && !Utilities.isNullOrUndefinedString(this.nameFilter) && this.nameFilter.length > 0) {
       if (this.exactNameMatch) 
         filters.push({ field: "exactNameMatch", value: true });  
       filters.push({ field: "name", value: this.nameFilter })
 		}
-		
-		
 
-  	
+		if (!Utilities.isNullOrUndefinedString(this.yearControl.value) && this.yearControl.value > 0)
+			filters.push({ field: "year", value: this.yearControl.value })
+			
 		return filters;
 	}
 

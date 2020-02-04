@@ -11,7 +11,6 @@ import { QueryStringBuilder } from '../models/QueryStringBuilder';
 })
 export class YearNamesService {
   private readonly yearBabyNameUrl: string = Constants.baseUrl + 'api/YearBabyNames';
-  private readonly stateUrl: string = Constants.baseUrl + "api/States";
 
   constructor(
       private http: HttpClient

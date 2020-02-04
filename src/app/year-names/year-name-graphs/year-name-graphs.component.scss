@@ -1,6 +1,19 @@
 .graph-container {
     width: 100%;
+    
+    .chart-type {
+        color: rgba(0,0,0,0.6);
+        margin-top: 8px;
+        margin-bottom: 16px;
+        font-weight: 500;
+        &:hover {
+            color: rgba(0,0,200,0.57);
+            cursor: pointer;
+        }
+    }
+
     .card-container {
+        margin-top: 16px;
         width: 90%;
         height: 100%;
         display: flex;
