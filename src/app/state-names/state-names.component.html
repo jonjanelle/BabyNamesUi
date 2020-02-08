@@ -1,5 +1,5 @@
 <div class="state-names-container">
-    <app-header [title]="'NAMES&nbsp;&nbsp;BY&nbsp;&nbsp;STATE'"></app-header>
+    <app-header [title]="'Names&nbsp;&nbsp;By&nbsp;&nbsp;State'"></app-header>
 
     <mat-card class="state-names-card">
         <mat-card-content>
@@ -46,7 +46,7 @@
                 </mat-form-field>
             </div>
         
-            <div class="table-container">
+            <div class="table-container" *ngIf="!statesLoading">
                 <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>

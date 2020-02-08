@@ -1,6 +1,5 @@
 .graph-container {
     width: 100%;
-    
     .chart-type {
         color: rgba(0,0,0,0.6);
         margin-top: 8px;
@@ -14,17 +13,35 @@
 
     .card-container {
         margin-top: 16px;
-        width: 90%;
         height: 100%;
         display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-around;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
         .filter-card {
-            flex-basis: 20%;
+            flex-basis: 22%;
         }
         .main-card {
             flex-basis: 70%;
         }
+    }
+
+    .chart-parent { 
+        display: grid; 
+        min-height: 300px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .filter-card, .main-card {
+            flex-basis: 95% !important;
+            justify-content: space-around;
+        }
+    }
+}
+
+.filter-card {
+    .exact-match {
+        color: rgba(0,0,0,.54);
+        margin-left: 12px;
     }
 }

@@ -18,7 +18,6 @@ import { IYearBabyName } from '../year-names/models/IYearBabyName';
 export class StateNamesComponent {
   public readonly title: string = 'State Baby Names';
 
-
   //Name data
   public displayedColumns: string[] = ['name', 'count', 'year', 'sex', 'state'];
   public dataSource: MatTableDataSource<IStateBabyName>;

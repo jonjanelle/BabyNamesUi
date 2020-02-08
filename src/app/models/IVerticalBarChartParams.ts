@@ -1,14 +1,14 @@
 export interface IVerticalBarChartParams {
-    showXAxis: boolean ;
-    showYAxis: boolean ;
+    view?: number[]; //w, h dimensions in px
+    showXAxis: boolean;
+    showYAxis: boolean;
     gradient: boolean;
     showLegend: boolean;
-    showXAxisLabel: boolean ;
+    showXAxisLabel: boolean;
     xAxisLabel: string;
-    showYAxisLabel: boolean ;
-    yAxisLabel: string ;
+    showYAxisLabel: boolean;
+    yAxisLabel: string;
     barChartData: IBarChartData[];
-    
     colorScheme: IBarChartColorScheme;
 }
 

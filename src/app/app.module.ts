@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StateNamesComponent } from './state-names/state-names.component';
-import { MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatDividerModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatSelectModule, MatAutocompleteModule, MatCardModule, MatExpansionModule } from '@angular/material'; 
+import { MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatDividerModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatSelectModule, MatAutocompleteModule, MatCardModule, MatExpansionModule, MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material'; 
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,7 +36,9 @@ import { AppHeaderComponent } from './app-header/app-header.component';
     MatAutocompleteModule,
     MatCardModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
+    MatSelectModule,
     HttpClientModule,
     NgxChartsModule
   ],
