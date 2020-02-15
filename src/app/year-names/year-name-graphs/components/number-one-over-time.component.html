@@ -1,0 +1,33 @@
+<div>
+    <h2 class="text-center">#1 Names over Time</h2>
+    <h3>Girls</h3>
+    <div class="chart-parent" *ngIf="!girlNumberOneNamesOverTimeParams.isLoading">
+        <ngx-charts-line-chart
+            [results]="girlNumberOneNamesOverTimeParams.results"
+            [gradient]="girlNumberOneNamesOverTimeParams.gradient"
+            [xAxis]="girlNumberOneNamesOverTimeParams.xAxis"
+            [yAxis]="girlNumberOneNamesOverTimeParams.yAxis"
+            [legend]="girlNumberOneNamesOverTimeParams.legend"
+            [showXAxisLabel]="girlNumberOneNamesOverTimeParams.showXAxisLabel"
+            [showYAxisLabel]="girlNumberOneNamesOverTimeParams.showYAxisLabel"
+            [xAxisLabel]="girlNumberOneNamesOverTimeParams.xAxisLabel"
+            [yAxisLabel]="girlNumberOneNamesOverTimeParams.yAxisLabel"
+            [autoScale]="girlNumberOneNamesOverTimeParams.autoScale">
+        </ngx-charts-line-chart>
+    </div>
+    <h3>Boys</h3>
+    <div class="chart-parent" *ngIf="!boyNumberOneNamesOverTimeParams.isLoading">
+        <ngx-charts-line-chart
+            [results]="boyNumberOneNamesOverTimeParams.results"
+            [gradient]="boyNumberOneNamesOverTimeParams.gradient"
+            [xAxis]="boyNumberOneNamesOverTimeParams.xAxis"
+            [yAxis]="boyNumberOneNamesOverTimeParams.yAxis"
+            [legend]="boyNumberOneNamesOverTimeParams.legend"
+            [showXAxisLabel]="boyNumberOneNamesOverTimeParams.showXAxisLabel"
+            [showYAxisLabel]="boyNumberOneNamesOverTimeParams.showYAxisLabel"
+            [xAxisLabel]="boyNumberOneNamesOverTimeParams.xAxisLabel"
+            [yAxisLabel]="boyNumberOneNamesOverTimeParams.yAxisLabel"
+            [autoScale]="boyNumberOneNamesOverTimeParams.autoScale">
+        </ngx-charts-line-chart>
+    </div>
+</div>

@@ -4,21 +4,21 @@
         <mat-card class="filter-card">
             <mat-card-content>
                 <h3>Filters</h3>
-                <mat-form-field class="form-field">
+                <mat-form-field class="form-field" *ngIf="showNameFilter">
                     <input matInput 
                         (keyup)="onFilterChange()" 
                         [(ngModel)]="nameFilter" 
                         placeholder="Name">
                     <button mat-button matSuffix mat-icon-button
                         *ngIf="nameFilter" aria-label="Clear" 
-                        (click)="nameFilter='';onFilterChange();">
+                        (click)="onFilterChange();">
                         <mat-icon>close</mat-icon>
                     </button>
                 </mat-form-field>
-                <span class="exact-match">
+                <span class="exact-match" *ngIf="showNameFilter">
                     <mat-checkbox [(ngModel)]="exactNameMatch" (change)="onFilterChange()">Exact</mat-checkbox>
                 </span>
-                <mat-form-field class="form-field">
+                <mat-form-field class="form-field" *ngIf="showYearFilter">
                     <input type="number" placeholder="Year" aria-label="Year" matInput
                         [formControl]="yearControl" 
                         [matAutocomplete]="yearAuto">
@@ -28,72 +28,20 @@
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Sex</mat-label>
-                    <mat-select>
-                      <mat-option [value]="sexOptions.Any">{{sexOptions.Any}}</mat-option>
-                      <mat-option [value]="sexOptions.Girl">{{sexOptions.Girl}}</mat-option>
-                      <mat-option [value]="sexOptions.Boy">{{sexOptions.Boy}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
 
                 <h3>Charts</h3>
-                <div class="chart-type" *ngFor="let label of chartTypeLabels">{{label}}</div>
+                <div class="chart-type" *ngFor="let chartType of chartTypes" (click)="onChangeChart(chartType.value)">
+                    {{chartType.label}}
+                </div>
             </mat-card-content>
         </mat-card>
         <mat-card class="main-card">
             <mat-card-content>
-                <h2 style="text-align: center;">{{yearControl.value}} - Top {{nResults}}</h2>
-                <div class="filter-container">
-                    <h3>Girls</h3>
-                    <div class="chart-parent">
-                        <ngx-charts-bar-vertical
-                            *ngIf="!isLoading"
-                            [scheme]="girlVerticalBarParams.colorScheme"
-                            [results]="girlVerticalBarParams.barChartData"
-                            [gradient]="girlVerticalBarParams.gradient"
-                            [xAxis]="girlVerticalBarParams.showXAxis"
-                            [yAxis]="girlVerticalBarParams.showYAxis"
-                            [legend]="girlVerticalBarParams.showLegend"
-                            [showXAxisLabel]="girlVerticalBarParams.showXAxisLabel"
-                            [showYAxisLabel]="girlVerticalBarParams.showYAxisLabel"
-                            [xAxisLabel]="girlVerticalBarParams.xAxisLabel"
-                            [yAxisLabel]="girlVerticalBarParams.yAxisLabel">
-                        </ngx-charts-bar-vertical>
-                    </div>
-                    <h3>Boys</h3>
-                    <div class="chart-parent">
-                        <ngx-charts-bar-vertical
-                            *ngIf="!isLoading"
-                            [scheme]="boyVerticalBarParams.colorScheme"
-                            [results]="boyVerticalBarParams.barChartData"
-                            [gradient]="boyVerticalBarParams.gradient"
-                            [xAxis]="boyVerticalBarParams.showXAxis"
-                            [yAxis]="boyVerticalBarParams.showYAxis"
-                            [legend]="boyVerticalBarParams.showLegend"
-                            [showXAxisLabel]="boyVerticalBarParams.showXAxisLabel"
-                            [showYAxisLabel]="boyVerticalBarParams.showYAxisLabel"
-                            [xAxisLabel]="boyVerticalBarParams.xAxisLabel"
-                            [yAxisLabel]="boyVerticalBarParams.yAxisLabel">
-                        </ngx-charts-bar-vertical>
-                    </div>
-                    <h3>Combined</h3>
-                    <div class="chart-parent">
-                        <ngx-charts-bar-vertical
-                            *ngIf="!isLoading"
-                            [scheme]="combinedVerticalBarParams.colorScheme"
-                            [results]="combinedVerticalBarParams.barChartData"
-                            [gradient]="combinedVerticalBarParams.gradient"
-                            [xAxis]="combinedVerticalBarParams.showXAxis"
-                            [yAxis]="combinedVerticalBarParams.showYAxis"
-                            [legend]="combinedVerticalBarParams.showLegend"
-                            [showXAxisLabel]="combinedVerticalBarParams.showXAxisLabel"
-                            [showYAxisLabel]="combinedVerticalBarParams.showYAxisLabel"
-                            [xAxisLabel]="combinedVerticalBarParams.xAxisLabel"
-                            [yAxisLabel]="combinedVerticalBarParams.yAxisLabel">
-                        </ngx-charts-bar-vertical>
-                    </div>
-                </div>
+                <top-by-year *ngIf="selectedChart == topNByYear"
+                    [yearFilter]="yearControl.value">
+                </top-by-year>
+                <number-one-over-time *ngIf="selectedChart == numberOneOverTime">
+                </number-one-over-time>
             </mat-card-content>            
         </mat-card>
     </div>    

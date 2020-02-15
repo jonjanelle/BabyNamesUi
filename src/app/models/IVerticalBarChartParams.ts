@@ -10,6 +10,7 @@ export interface IVerticalBarChartParams {
     yAxisLabel: string;
     barChartData: IBarChartData[];
     colorScheme: IBarChartColorScheme;
+    isLoading: boolean;
 }
 
 interface IBarChartColorScheme {

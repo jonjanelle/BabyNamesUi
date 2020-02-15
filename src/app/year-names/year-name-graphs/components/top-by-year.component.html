@@ -1,0 +1,51 @@
+<div>
+    <h2 style="text-align: center;">Top {{nResults}} of {{yearFilter}}</h2>
+    <h3>Girls</h3>
+    <div class="chart-parent">
+        <ngx-charts-bar-vertical
+            *ngIf="!isLoading"
+            [scheme]="girlVerticalBarParams.colorScheme"
+            [results]="girlVerticalBarParams.barChartData"
+            [gradient]="girlVerticalBarParams.gradient"
+            [xAxis]="girlVerticalBarParams.showXAxis"
+            [yAxis]="girlVerticalBarParams.showYAxis"
+            [legend]="girlVerticalBarParams.showLegend"
+            [showXAxisLabel]="girlVerticalBarParams.showXAxisLabel"
+            [showYAxisLabel]="girlVerticalBarParams.showYAxisLabel"
+            [xAxisLabel]="girlVerticalBarParams.xAxisLabel"
+            [yAxisLabel]="girlVerticalBarParams.yAxisLabel">
+        </ngx-charts-bar-vertical>
+    </div>
+    <h3>Boys</h3>
+    <div class="chart-parent">
+        <ngx-charts-bar-vertical
+            *ngIf="!isLoading"
+            [scheme]="boyVerticalBarParams.colorScheme"
+            [results]="boyVerticalBarParams.barChartData"
+            [gradient]="boyVerticalBarParams.gradient"
+            [xAxis]="boyVerticalBarParams.showXAxis"
+            [yAxis]="boyVerticalBarParams.showYAxis"
+            [legend]="boyVerticalBarParams.showLegend"
+            [showXAxisLabel]="boyVerticalBarParams.showXAxisLabel"
+            [showYAxisLabel]="boyVerticalBarParams.showYAxisLabel"
+            [xAxisLabel]="boyVerticalBarParams.xAxisLabel"
+            [yAxisLabel]="boyVerticalBarParams.yAxisLabel">
+        </ngx-charts-bar-vertical>
+    </div>
+    <h3>Combined</h3>
+    <div class="chart-parent">
+        <ngx-charts-bar-vertical
+            *ngIf="!isLoading"
+            [scheme]="combinedVerticalBarParams.colorScheme"
+            [results]="combinedVerticalBarParams.barChartData"
+            [gradient]="combinedVerticalBarParams.gradient"
+            [xAxis]="combinedVerticalBarParams.showXAxis"
+            [yAxis]="combinedVerticalBarParams.showYAxis"
+            [legend]="combinedVerticalBarParams.showLegend"
+            [showXAxisLabel]="combinedVerticalBarParams.showXAxisLabel"
+            [showYAxisLabel]="combinedVerticalBarParams.showYAxisLabel"
+            [xAxisLabel]="combinedVerticalBarParams.xAxisLabel"
+            [yAxisLabel]="combinedVerticalBarParams.yAxisLabel">
+        </ngx-charts-bar-vertical>
+    </div>
+</div>

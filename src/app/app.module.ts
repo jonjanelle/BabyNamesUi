@@ -14,6 +14,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { YearNameGraphsComponent } from './year-names/year-name-graphs/year-name-graphs.component';
 import { YearNameTablesComponent } from './year-names/year-name-tables/year-name-tables.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
+import { NumberOneOverTimeComponent } from './year-names/year-name-graphs/components/number-one-over-time.component';
+import { TopByYearComponent } from './year-names/year-name-graphs/components/top-by-year.component';
 
 @NgModule({
   imports: [
@@ -47,7 +49,9 @@ import { AppHeaderComponent } from './app-header/app-header.component';
     AppHeaderComponent,
     StateNamesComponent,
     YearNameGraphsComponent,
-    YearNameTablesComponent
+    YearNameTablesComponent,
+    NumberOneOverTimeComponent,
+    TopByYearComponent
   ],
   providers: [
     StateNamesService

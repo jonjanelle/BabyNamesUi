@@ -2,15 +2,18 @@ import { Component, ViewChild, OnInit, ViewEncapsulation, AfterViewInit } from '
 import { HttpClient } from '@angular/common/http';
 import { IYearBabyName } from '../models/IYearBabyName';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import { finalize, filter, startWith, map } from 'rxjs/operators';
+import { finalize, filter, startWith, map, single } from 'rxjs/operators';
 import { YearNamesService } from '../year-names.service';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { isNullOrUndefined } from 'util';
 import { IFilter } from 'src/app/models/IFilter';
 import { Utilities } from 'src/app/core/utilities';
 import { IVerticalBarChartParams } from 'src/app/models/IVerticalBarChartParams';
-// https://localhost:44365/api/YearBabyNames?order=year desc&name=iris&sex=f&year=2018&top=100&exactNameMatch=true
+import { ILineChartParams, ILineChartData } from 'src/app/models/ILineChartParams';
+import { INumberOneNameOverTime } from '../models/INumberOneNameOverTime';
+import { IChartType } from '../models/IChartType';
+
 @Component({
 	selector: 'year-name-graphs',
 	templateUrl: './year-name-graphs.component.html',
@@ -18,9 +21,16 @@ import { IVerticalBarChartParams } from 'src/app/models/IVerticalBarChartParams'
 	encapsulation: ViewEncapsulation.None
 })
 export class YearNameGraphsComponent {
-	public readonly title: string = 'All Baby Names - Graphs';
-	public isLoading: boolean = true;
-	public nResults: number = 15;
+
+	public readonly topNByYear: string = "TopNByYear";
+	public readonly numberOneOverTime: string = "NumberOneOverTime";
+	public readonly nameOverTime: string = "NameOverTime";
+	
+	public selectedChart: string = this.topNByYear;
+	
+	//Filter flags 
+	public showYearFilter: boolean = true;
+	public showNameFilter: boolean = false; //Also exact name match
 
 	// Year filter
 	public readonly yearOptions = Utilities.range(1910, 2018).sort((a, b) => a > b ? -1 : 1).map(v => v.toString());
@@ -31,76 +41,27 @@ export class YearNameGraphsComponent {
 	public nameFilter: string;
 	public exactNameMatch: boolean;
 
-	//sex filter
-	public sexOptions = {Any: "Any", Boy: "Boy", Girl: "Girl"};
-	public sexFilter: string = this.sexOptions.Any;
-
-	//chart config
-	public girlVerticalBarParams: IVerticalBarChartParams;
-	public boyVerticalBarParams: IVerticalBarChartParams;
-	public combinedVerticalBarParams: IVerticalBarChartParams;
-
-	public chartTypeLabels: string[] = ["Top 20 by year", "Name over time", "Top name over time"];
-	public readonly chartType = {
-		top10ByYear: this.chartTypeLabels[0],
-		nameOverTime: this.chartTypeLabels[1]
-	};
-	
-	public queryFilters: IFilter[] = [];
+	public chartTypes: IChartType[] = [
+		{label: "Top 15 by year", value: this.topNByYear},
+		{label: "Name over time", value: this.numberOneOverTime},
+		{label: "#1's over time", value: this.numberOneOverTime}
+	];
 
 	constructor(private yearNamesService: YearNamesService) {
-		this.girlVerticalBarParams = {
-			view: undefined,
-			showXAxis: true,
-			showYAxis: true,
-			gradient: false,
-			showLegend: false,
-			showXAxisLabel: true,
-			xAxisLabel: 'Name',
-			showYAxisLabel: true,
-			yAxisLabel: 'Count',
-			barChartData: [],
-			colorScheme: { domain: ['#ff7c7c'] }
-		};
-		this.boyVerticalBarParams = {
-			view: undefined,
-			showXAxis: true,
-			showYAxis: true,
-			gradient: false,
-			showLegend: false,
-			showXAxisLabel: true,
-			xAxisLabel: 'Name',
-			showYAxisLabel: true,
-			yAxisLabel: 'Count',
-			barChartData: [],
-			colorScheme: { domain: ['#7c7cff'] }
-		};
-		this.combinedVerticalBarParams = {
-			view: undefined,
-			showXAxis: true,
-			showYAxis: true,
-			gradient: false,
-			showLegend: false,
-			showXAxisLabel: true,
-			xAxisLabel: 'Name',
-			showYAxisLabel: true,
-			yAxisLabel: 'Count',
-			barChartData: [],
-			colorScheme: { domain: ['#cc7acc'] }
-		};
-
 		this.initYearFilter();
-		this.refreshData();
 	}
 
-	private refreshData(): void {
-		this.getCombinedTopN(this.nResults);
-		this.getGirlTopN(this.nResults);
-		this.getBoyTopN(this.nResults);
-	}
-
-	public getTop10Data(): void {
-		
+	public onChangeChart(newChartType: string) {
+		this.selectedChart = newChartType;
+		console.log(this.selectedChart)
+		if (this.selectedChart === this.topNByYear) {
+			this.showNameFilter = false;
+			this.showYearFilter = true;
+		} else if (this.selectedChart === this.numberOneOverTime) {
+			this.showNameFilter = false;
+			this.showYearFilter = false;
+			//need new filtering options for this type
+		}
 	}
 
 	private initYearFilter(): void {
@@ -122,67 +83,4 @@ export class YearNameGraphsComponent {
 		var filterValue = value.toString();
 		return this.yearOptions.filter(year => year.toString().indexOf(filterValue) === 0);
 	}
-
-	public onYearFilterChange() {
-		console.log(this.yearControl.value);
-		this.refreshData();
-	}
-
-	public onYearSelected(stateFilter: MatAutocompleteSelectedEvent) {
-		this.getData(this.nResults);
-	}
-
-	private getBoyTopN(n: number) {
-		this.sexFilter = this.sexOptions.Boy;
-		this.getData(n).subscribe(names => {
-			this.boyVerticalBarParams.barChartData = names.map((n) => ({name: n.name, value: n.count}));
-		});
-	}
-	
-	private getGirlTopN(n: number) {
-		this.sexFilter = this.sexOptions.Girl;
-		this.getData(n).subscribe(names => {
-			this.girlVerticalBarParams.barChartData = names.map((n) => ({name: n.name, value: n.count}));
-		});
-	}
-	
-	private getCombinedTopN(n: number) {
-		this.sexFilter = this.sexOptions.Any;
-		this.getData(n).subscribe(names => {
-			this.combinedVerticalBarParams.barChartData = names.map((n) => ({name: n.name, value: n.count}));
-		});
-	}
-
-	private getData(take: number): Observable<IYearBabyName[]> {
-		this.isLoading = true;
-		const filters = this.getFilters();
-		filters.push({ field: "top", value: take })
-		filters.push({ field: "orderBy", value: "count desc" })
-
-		return this.yearNamesService.getAllNames(filters).pipe(finalize(() => this.isLoading = false));
-	}
-
-	private getFilters(): IFilter[] {
-		let filters: IFilter[] = [];
-		
-		if (!isNullOrUndefined(this.nameFilter) && !Utilities.isNullOrUndefinedString(this.nameFilter) && this.nameFilter.length > 0) {
-      if (this.exactNameMatch) 
-        filters.push({ field: "exactNameMatch", value: true });  
-      filters.push({ field: "name", value: this.nameFilter })
-		}
-
-		if (!Utilities.isNullOrUndefinedString(this.yearControl.value) && this.yearControl.value > 0)
-			filters.push({ field: "year", value: this.yearControl.value })
-			
-			if (!isNullOrUndefined(this.sexFilter) && this.sexFilter !== this.sexOptions.Any) {
-				if (this.sexFilter === this.sexOptions.Boy)
-					filters.push({ field: "sex", value: 'M' })
-				else if (this.sexFilter === this.sexOptions.Girl)
-					filters.push({ field: "sex", value: 'F' })
-			}
-
-		return filters;
-	}
-
-
 }
